@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Refinery</title>
+  <meta name="description" content="An aerial pass over a coastal oil refinery. Scroll through the footage frame by frame; nine parts of the plant are tracked and labelled." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="film.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+  </script>
+</head>
+<body class="loading">
+  <div id="loader">
+    <p class="loader-label mono">Loading footage</p>
+    <p class="loader-count"><span id="loader-n">0</span><span class="loader-of">/192</span></p>
+    <div class="loader-line"><i id="loader-fill"></i></div>
+  </div>
+
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="scrim" aria-hidden="true"></div>
+  <div id="tags"></div>
+
+  <header class="topbar">
+    <div class="progress" aria-hidden="true"><i id="progress-fill"></i></div>
+    <a class="brand" href="#top">Refinery</a>
+    <nav class="chapters-nav" aria-label="Chapters">
+      <button data-go="1"><span class="mono">01</span> Distillation</button>
+      <button data-go="2"><span class="mono">02</span> Conversion</button>
+      <button data-go="3"><span class="mono">03</span> Storage</button>
+    </nav>
+    <button id="index-btn" class="index-btn" aria-expanded="false" aria-controls="index-panel">Index <span class="mono">9</span></button>
+  </header>
+
+  <div id="index-panel" class="index-panel" hidden>
+    <ol id="index-list"></ol>
+  </div>
+
+  <p class="frame-count mono" aria-hidden="true">Frame <span id="frame-n">000</span> / 191</p>
+
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-top">
+      <p class="mono" id="d-num"></p>
+      <button id="drawer-close" class="text-btn">Close</button>
+    </div>
+    <h3 id="d-title"></h3>
+    <p class="drawer-kicker" id="d-kicker"></p>
+    <p class="drawer-desc" id="d-desc"></p>
+    <dl class="drawer-specs" id="d-specs"></dl>
+    <p class="drawer-flow"><span class="mono">Connects to</span><span id="d-flow"></span></p>
+    <p class="drawer-note">Figures are typical ranges for plants of this type, not measurements of this site.</p>
+  </aside>
+
+  <main id="top">
+    <section class="hero" data-f0="0" data-f1="0">
+      <div class="hero-inner">
+        <p class="hero-meta mono">Coastal oil refinery · Aerial survey · 8 s · 192 frames</p>
+        <h1 class="hero-title">Refinery</h1>
+        <p class="hero-lede">Scroll to move through the footage frame by frame. Nine parts of the plant are tracked and labelled as they pass through the shot.</p>
+      </div>
+      <p class="scroll-hint mono">Scroll</p>
+    </section>
+
+    <section class="chapter" data-f0="0" data-f1="62" data-ch="1">
+      <div class="ch-sticky">
+        <div class="ch-text">
+          <p class="ch-index mono">01 / 03</p>
+          <h2>Distillation</h2>
+          <p class="ch-body">Crude oil arrives by tanker and is pumped to storage, then heated and fed into the atmospheric distillation column. Inside, it separates by boiling point: light gases leave at the top, heavy residue at the bottom, with naphtha, kerosene and diesel drawn off in between.</p>
+          <ul class="ch-list" data-tags="flare column jetty tanker"></ul>
+          <div class="ch-progress"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" data-f0="62" data-f1="125" data-ch="2">
+      <div class="ch-sticky">
+        <div class="ch-text">
+          <p class="ch-index mono">02 / 03</p>
+          <h2>Conversion</h2>
+          <p class="ch-body">The camera drops between the process units. Fired heaters bring the feed up to around 400 °C before it enters catalytic reactors, where hydrogen removes sulphur and heavier molecules are broken down into lighter fuels.</p>
+          <ul class="ch-list" data-tags="heater reactor"></ul>
+          <div class="ch-progress"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" data-f0="125" data-f1="191" data-ch="3">
+      <div class="ch-sticky">
+        <div class="ch-text">
+          <p class="ch-index mono">03 / 03</p>
+          <h2>Storage and export</h2>
+          <p class="ch-body">Finished products run along the main pipe rack to the tank farm. Floating-roof tanks hold them until a tanker loads at the marine terminal, while the conversion units on the skyline keep running.</p>
+          <ul class="ch-list" data-tags="piperack tankfarm units tanker"></ul>
+          <div class="ch-progress"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="outro" data-f0="191" data-f1="191">
+      <div class="outro-inner">
+        <p class="ch-index mono">Index</p>
+        <h2 class="outro-title">Nine systems in one pass over the plant.</h2>
+        <ol class="outro-list" id="outro-list"></ol>
+        <button class="text-btn back" id="replay">Back to the start</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="film.js"></script>
+</body>
+</html>
