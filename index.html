@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Refinery</title>
+  <meta name="description" content="A procedurally built 3D oil refinery. Click any unit to fly in and explore its equipment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body class="loading">
+  <div id="loader">
+    <p class="mono loader-label" id="loader-label">Building plant</p>
+    <p class="loader-title">Refinery</p>
+    <div class="loader-line"><i id="loader-fill"></i></div>
+  </div>
+
+  <canvas id="scene" aria-label="3D model of an oil refinery"></canvas>
+  <div id="markers"></div>
+
+  <header class="topbar">
+    <a class="brand" href="./">Refinery</a>
+    <nav class="tools">
+      <button id="units-btn" aria-expanded="false" aria-controls="units-panel">Units <span class="mono">12</span></button>
+      <button id="tour-btn" aria-pressed="false">Tour</button>
+      <button id="mode-btn" aria-pressed="false">Night</button>
+      <a href="film.html">Film</a>
+    </nav>
+  </header>
+
+  <div id="units-panel" class="units-panel" hidden>
+    <ol id="units-list"></ol>
+  </div>
+
+  <aside id="panel" class="panel" aria-hidden="true">
+    <div class="panel-top">
+      <p class="mono" id="p-num"></p>
+      <div class="panel-nav">
+        <button id="p-prev" aria-label="Previous unit">Prev</button>
+        <button id="p-next" aria-label="Next unit">Next</button>
+        <button id="p-close" class="close">Overview</button>
+      </div>
+    </div>
+    <h2 id="p-title"></h2>
+    <p class="panel-kicker" id="p-kicker"></p>
+    <p class="panel-desc" id="p-desc"></p>
+    <dl class="panel-stats" id="p-stats"></dl>
+    <p class="mono panel-sub">Equipment <span>— select to zoom</span></p>
+    <ol class="panel-parts" id="p-parts"></ol>
+    <p class="panel-note">Illustrative model. Dimensions are typical for plants of this kind, not a specific site.</p>
+  </aside>
+
+  <div class="hint mono" id="hint">Drag to orbit · Scroll to zoom · Right-drag to pan · Click a unit to fly in</div>
+  <div class="crumb mono" id="crumb" hidden></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
